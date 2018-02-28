@@ -14,14 +14,16 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
---><!-- The contents of this file will be loaded for each web application --><Context>
-
+--><!-- The contents of this file will be loaded for each web application -->
+<Context>
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
     <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
 
+	<Resource name="jdbc/testdb" auth="Container" type="javax.sql.DataSource" maxActive="10" maxIdle="3" maxWait="10000" username="study" password="study"
+	driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:8888/testdb" closeMethod="close" />
     <!-- Uncomment this to disable session persistence across Tomcat restarts -->
     <!--
     <Manager pathname="" />
