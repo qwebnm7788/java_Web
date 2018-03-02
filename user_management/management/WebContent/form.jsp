@@ -3,17 +3,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<%@ include file="./commons/_head.jspf" %>
-	    <link rel="stylesheet" href="stylesheets/custom/form.css">
+		<%@ include file="/commons/_head.jspf" %>
+	    <link rel="stylesheet" href="/stylesheets/custom/form.css">
 	    <title>title goes here</title>
 	</head>
 	<body>
-		<%@ include file="./commons/_top.jspf" %>
+		<%@ include file="/commons/_top.jspf" %>
 		
 	    <div role="main" class="container">
 	        <div class="row">
 	            <div class="col-md-8 mx-auto form-group">
-	                <form action="/form_action.jsp" method="post">
+	                <form action="/users/save" method="post">
 	                    <h2>Registration</h2>
 	                    <div>
 	                    	<label for="">User ID</label>

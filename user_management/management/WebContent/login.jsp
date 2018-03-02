@@ -3,15 +3,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <link rel="stylesheet" href="stylesheets/bootstrap/bootstrap.min.css">
-	    <link rel="stylesheet" href="stylesheets/custom/login.css">
+		<%@ include file="/commons/_head.jspf" %>
+	    <link rel="stylesheet" href="/stylesheets/custom/login.css">
 	    <title>title goes here</title>
 	</head>
 	<body>
 		<div class="container">
-			<form class="form-signin" action="/login_action.jsp" method="post">
+			<form class="form-signin" action="/users/login" method="post">
 		        <img class="mb-4" src="images/bootstrap-solid.svg" alt="" width="72" height="72">
 		        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 		        <%

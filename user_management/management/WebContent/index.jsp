@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="./commons/_head.jspf" %>
-    <link rel="stylesheet" href="stylesheets/custom/index.css">
+	<%@ include file="/commons/_head.jspf" %>
+    <link rel="stylesheet" href="/stylesheets/custom/index.css">
     <title>title goes here</title>
 </head>
 <body>
-	<%@ include file="./commons/_top.jspf" %>
+	<%@ include file="/commons/_top.jspf" %>
 
     <div role="main" class="container">
         <div class="jumbotron">
