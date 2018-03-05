@@ -69,7 +69,7 @@ public class ServletRequestDataBinder {
 			return Double.valueOf(value);
 		}else if(type.getName().equals("boolean") || type == Boolean.class) {
 			return Boolean.valueOf(value);
-		}else if(type == Date.class) {
+		}else if(type == java.util.Date.class) {
 			return java.sql.Date.valueOf(value);
 		}else {
 			return value;

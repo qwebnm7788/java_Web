@@ -5,9 +5,14 @@ import java.lang.reflect.Method;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+
+import org.reflections.Reflections;
+
+import spms.annotation.Component;
 
 public class ApplicationContext {
 	Map<String, Object> objTable = new Hashtable<String, Object>();
@@ -21,6 +26,7 @@ public class ApplicationContext {
 		props.load(new FileReader(propertiesPath));			//프로퍼티 파일을 읽어서 내부 맵에 저장
 		
 		prepareObjects(props);			//프로퍼티 준비 -> 해당하는 객체를 생성해놓는다. (jndi는 값 자체를 불러온다)
+		prepareAnnotationObjects();     //애노테이션이 붙은 클래스의 객체 생성
 		injectDependency();				//이제 얻어온 객체가 필요로 하는 의존객체를 주입한다. (예를 들면 memberDao에 DataSource를 주입하는일 등)
 	}
 	
@@ -73,5 +79,17 @@ public class ApplicationContext {
 			}
 		}
 		return null;
+	}
+	
+	private void prepareAnnotationObjects() throws Exception {
+		Reflections reflector = new Reflections("");			//CLASSPATH부터 찾는다. (매개변수에 주어진 폴더 아래를 찾음)
+		
+		Set<Class<?>> list = reflector.getTypesAnnotatedWith(Component.class);			//Component 컴포넌트가 붇은 클래스 타입을 리스트로 반환한다.
+		String key = null;
+		
+		for(Class<?> clazz : list) {
+			key = clazz.getAnnotation(Component.class).value();                        //value속성의 값을 받아옴
+			objTable.put(key, clazz.getConstructor().newInstance());									   //해당 클래스의 객체를 생성하여 테이블에 넣어준다.
+		}
 	}
 }
