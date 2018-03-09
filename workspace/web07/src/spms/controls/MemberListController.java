@@ -19,6 +19,7 @@ public class MemberListController implements Controller, DataBinding {
 	public String execute(Map<String, Object> model) throws Exception {
 		Map<String, Object> paramMap = new Hashtable<String, Object>();
 		paramMap.put("orderCond", model.get("orderCond"));
+		
 		model.put("members", memberDao.selectList(paramMap));
 		return "/Member/MemberList.jsp";
 	}

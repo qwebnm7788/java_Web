@@ -31,7 +31,12 @@ public class UserDAOTest {
 		
 		User dbUser = userDao.findByUserId(user.getUserId());
 		assertEquals(UserTest.TEST_USER, dbUser);
+	
+		User updateUser = new User(user.getUserId(), "uPassword", "update name", "update@naver.com");
+		userDao.updateUser(updateUser);
 		
+		dbUser = userDao.findByUserId(updateUser.getUserId());
+		assertEquals(updateUser, dbUser);
 	} 
 	@Test
 	public void 존재하지_않는_사용자_조회() throws Exception {
@@ -41,3 +46,4 @@ public class UserDAOTest {
 		assertNull(dbUser);
 	}
 }
+	
