@@ -28,7 +28,7 @@ public class UpdateFormUserServlet extends HttpServlet {					//update_form.jsp �
 			User user = userDao.findByUserId(userId);					//user정보를 얻어옴
 			req.setAttribute("user", user);										//user정보를 request에 저장
 			//forward방식으로 이동시 request의 값을 사용할 수 있고 redirect 방식에서는 그렇지 않다.
-			RequestDispatcher rd = req.getRequestDispatcher("/update_form.jsp");
+			RequestDispatcher rd = req.getRequestDispatcher("/form.jsp");
 			rd.forward(req, resp);
 		} catch (SQLException e) {
 		}
