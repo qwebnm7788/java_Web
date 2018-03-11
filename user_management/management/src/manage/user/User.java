@@ -2,10 +2,16 @@ package manage.user;
 
 import java.sql.SQLException;
 
+import com.google.gson.annotations.Expose;
+
 public class User {
+	@Expose
 	private String userId;
+	@Expose(serialize = false)
 	private String password;
+	@Expose
 	private String email;
+	@Expose
 	private String name;
 	
 	public User(String userId, String password, String email, String name) {
