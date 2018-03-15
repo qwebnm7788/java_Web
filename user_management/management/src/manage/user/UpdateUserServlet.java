@@ -1,6 +1,7 @@
 package manage.user;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
 
 import manage.support.MyValidatorFactory;
 
@@ -27,20 +30,18 @@ public class UpdateUserServlet extends HttpServlet {
 			return;
 		}
 		
-		String userId = request.getParameter("userId");
-		if(!sessionUserId.equals(userId)) {
+		User user = new User();
+		try {
+			BeanUtilsBean.getInstance().populate(user, request.getParameterMap());
+		} catch (IllegalAccessException | InvocationTargetException e1) {
+			throw new ServletException(e1);
+		}
+
+		if(!user.isSameUser(sessionUserId)) {
 			response.sendRedirect("/");
 			return;
 		}
 		
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
-		
-		System.out.println(request.getParameter("userId"));
-		System.out.println(request.getParameter("name"));
-		
-		User user = new User(userId, password, email, name);
 		Validator validator = MyValidatorFactory.createValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 		

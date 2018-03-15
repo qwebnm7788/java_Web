@@ -1,6 +1,7 @@
 package manage.user;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.Set;
 
@@ -13,18 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.apache.commons.beanutils.BeanUtilsBean;
+
 import manage.support.MyValidatorFactory;
 
 @WebServlet("/users/create")
 public class CreateUserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String name = request.getParameter("name");
+		User user = new User();
 		
-		User user = new User(userId, password, email, name);
+		try {
+			BeanUtilsBean.getInstance().populate(user, request.getParameterMap());
+		} catch (IllegalAccessException | InvocationTargetException e1) {
+			throw new ServletException(e1);
+		}
+		
 		Validator validator = MyValidatorFactory.createValidator();
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 		
