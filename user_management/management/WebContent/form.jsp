@@ -13,32 +13,31 @@
 	<div role="main" class="container">
 		<div class="row">
 			<div class="col-md-8 mx-auto form-group">
-
 				<c:set var="actionUrl" value="/users/create" />
-				<c:if test="${not empty user.userId }">
+				<c:set var="pageName" value="회원가입"></c:set>
+				<c:if test="${isUpdate }">
 					<c:set var="actionUrl" value="/users/update" />
+					<c:set var="pageName" value="개인정보수정"></c:set>
 				</c:if>
 
 				<form action="${actionUrl}" method="post">
-					<c:choose>
-						<c:when test="${empty user.userId }">
-							<h2>회원가입</h2>
-						</c:when>
-						<c:otherwise>
-							<h2>개인정보수정</h2>
-						</c:otherwise>
-					</c:choose>
+					<h1>${pageName }</h1>
+					<c:if test="${not empty errorMessage }">
+						<div class="control-group">
+							<label class="text-danger">${errorMessage }</label>
+						</div>
+					</c:if>
 					<div>
 						<label for="">User ID</label>
 						<c:choose>
-							<c:when test="${empty user.userId }">
-								<input class="form-control" type="text" placeholder="User Id"
-									name="userId" value="${user.userId }" autofocus>
-							</c:when>
-							<c:otherwise>
+							<c:when test="${isUpdate }">
 								<input type="hidden" name="userId" value="${user.userId }">
 								<input class="form-control" type="text" placeholder="User Id"
 									name="userId" value="${user.userId }" disabled>
+							</c:when>
+							<c:otherwise>
+								<input class="form-control" type="text" placeholder="User Id"
+									name="userId" value="${user.userId }" autofocus>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -64,11 +63,7 @@
 						</div>
 					</div>
 
-					<c:set var="buttonMsg" value="등록" />
-					<c:if test="${not empty user.userId }">
-						<c:set var="buttonMsg" value="수정" />
-					</c:if>
-					<button class="mt-4 btn btn-primary" type="submit">${buttonMsg}</button>
+					<button class="mt-4 btn btn-primary" type="submit">${pageName}</button>
 				</form>
 			</div>
 		</div>
