@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 
 import manage.support.MyValidatorFactory;
@@ -34,7 +35,7 @@ public class CreateUserServlet extends HttpServlet {
 		Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 		
 		if(constraintViolations.size() > 0) {
-			request.setAttribute("user", user);
+			request.setAttribute("user ", user);
 			String errorMessage = constraintViolations.iterator().next().getMessage();
 			forwardJSP(request, response, errorMessage);
 			return;
